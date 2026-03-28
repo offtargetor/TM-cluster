@@ -29,7 +29,7 @@ rm $cluster
 cat $list|while read line
 do
         name=`echo $line|awk '{print $1}'`
-        grep "^$name" apobec.msta.sort |awk -v value=$4 '{if($3>value){print $0}}' >>$cluster
+        grep -w "^$name" apobec.msta.sort |awk -v value=$4 '{if($3>value){print $0}}' >>$cluster
 done
 perl deal.msta.sort.pl $cluster >$cluster.txt
 less $cluster.txt |awk 'BEGIN{i=1;}{if(a!=$1){printf "\n"i"\t"$2;a=$1;i++}else{printf "\t"$2}}' >$cluster.sort.txt
